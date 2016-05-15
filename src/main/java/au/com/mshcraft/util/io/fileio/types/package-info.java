@@ -1,0 +1,8 @@
+/**
+ * 
+ */
+/**
+ * @author Sari
+ *
+ */
+package au.com.mshcraft.util.io.fileio.types;

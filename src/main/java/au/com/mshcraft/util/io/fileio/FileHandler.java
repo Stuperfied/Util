@@ -27,10 +27,12 @@
 
 package au.com.mshcraft.util.io.fileio;
 
+import au.com.mshcraft.util.io.fileio.resolvers.IFileResolver;
+
 public class FileHandler extends AbstractFileHandler {
 	
-	private FileResolver resolver;
-	public FileHandler(FileResolver resolver) {
+	private IFileResolver resolver;
+	public FileHandler(IFileResolver resolver) {
 		this.resolver = resolver;
 	}
 	
