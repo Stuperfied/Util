@@ -27,6 +27,10 @@
 
 package au.com.mshcraft.util.io.fileio;
 
-public class FileIo {
+import org.bukkit.plugin.java.JavaPlugin;
+
+public class FileIo extends JavaPlugin {
+	
+	
 
 }
