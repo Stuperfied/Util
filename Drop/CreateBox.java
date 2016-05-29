@@ -23,8 +23,9 @@
 			try {
 				origin = session.getPlacementPosition(localPlayer);
 				clipboard = copier.copyRegion(region, origin);
+				EditSession es = new EditSession((LocalWorld) localPlayer.getWorld(), Integer.MAX_VALUE);
 				RegionPaster paster = new RegionPaster();
-				paster.paste(clipboard, localPlayer);
+				paster.paste(clipboard, es, origin);
 			} catch (IncompleteRegionException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -34,4 +35,3 @@
 			}
 			
 		}
-	}
