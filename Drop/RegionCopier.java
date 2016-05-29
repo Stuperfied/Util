@@ -30,11 +30,9 @@ public class RegionCopier {
 		Player player = (Player) offlinePlayer;
 		
 		// LocalSession session = new LocalSession();
-	    // LocalSession session = WorldEdit.getInstance().getSessionManager().get(player);
-		
-        LocalPlayer localPlayer = worldEdit.wrapPlayer((org.bukkit.entity.Player) player);
-        LocalSession session = w.getSession(localPlayer);
-		
+        // LocalPlayer localPlayer = worldEdit.wrapPlayer((org.bukkit.entity.Player) player);
+        // LocalSession session = w.getSession(localPlayer);
+        LocalSession session = WorldEdit.getInstance().getSessionManager().get(player);
 	    
 	    ClipboardCommands clipboard = new ClipboardCommands(w);
 	    clipboard.copy(player, session, es, region, false, null);
