@@ -61,7 +61,7 @@ public class RegionCopier {
 	    
 	    
 	    
-	   
+	   // Stop reading here, this just throws it out as a schematic for troubleshooting.
 	    String schematicName = "testSchematic1.scm";		
 	    String folder;
 		File file;
