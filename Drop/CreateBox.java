@@ -19,13 +19,13 @@
 			ClipboardHolder clipboard = null;
 			LocalPlayer localPlayer = worldEdit.wrapPlayer((org.bukkit.entity.Player) player);
 			LocalSession session = WorldEdit.getInstance().getSessionManager().get(localPlayer);
-			com.sk89q.worldedit.Vector origin = null;
+			com.sk89q.worldedit.Vector playerOrigin = null;
 			try {
-				origin = session.getPlacementPosition(localPlayer);
+				playerOrigin = session.getPlacementPosition(localPlayer);
 				clipboard = copier.copyRegion(region, origin);
 				EditSession es = new EditSession((LocalWorld) localPlayer.getWorld(), Integer.MAX_VALUE);
 				RegionPaster paster = new RegionPaster();
-				paster.paste(clipboard, es, origin);
+				paster.paste(clipboard, es, playerOrigin);
 			} catch (IncompleteRegionException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -35,3 +35,4 @@
 			}
 			
 		}
+	}
