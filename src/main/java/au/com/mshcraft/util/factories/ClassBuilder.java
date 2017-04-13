@@ -34,12 +34,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.avaje.ebean.enhance.agent.DefaultConstructor;
+
 public class ClassBuilder extends ClassFactory<String, Object> {
 	
 	private boolean enableDebug;
 	private String className;
 	private Object[] cArgs;
-	// private HashMap<String, Object> types;
 		
 	/**
 	 * Used to pre-instantiate the class with no settings. Typically not recommended as no error control is provided.
@@ -48,7 +49,6 @@ public class ClassBuilder extends ClassFactory<String, Object> {
 	public ClassBuilder() {
 		
 		// declared types 
-		// this.types = new HashMap<String, Object>();
 		this.enableDebug = false;
 	}
 	
@@ -62,7 +62,6 @@ public class ClassBuilder extends ClassFactory<String, Object> {
 		this.className = cName;
 		
 		// declared types 
-		// this.types = new HashMap<String, Object>();
 		this.enableDebug = false;
 	}
 	
@@ -78,7 +77,6 @@ public class ClassBuilder extends ClassFactory<String, Object> {
 		this.cArgs = constructorArgs;
 		
 		// declared types 
-		// this.types = new HashMap<String, Object>();
 		this.enableDebug = false;
 	}
 	
@@ -180,23 +178,15 @@ public class ClassBuilder extends ClassFactory<String, Object> {
 	
 	// mutators
 	private Object builtObject() {
+		
 		Class<?> cls = null;
 		Object handler = null;
-		Object clsObject = null;
 		try {
-			cls = Class.forName(this.className);
-			clsObject = cls.newInstance();
+			cls = Class.forName(this.className);		
 		} catch (ClassNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
-				
 		
 		// Get the first constructor which contains matching parameters for cArg
 		List<String> cArgTypes = new ArrayList<>();
@@ -208,31 +198,14 @@ public class ClassBuilder extends ClassFactory<String, Object> {
 			}
 			
 			Constructor<?>[] ctors = cls.getDeclaredConstructors();
-			// int ctorTypeMatches;
 			for (Constructor<?> ctor: ctors) {
-				// ctorTypeMatches = 0;
+				
 				Class<?>[] ctorTypes = ctor.getParameterTypes().length == cArgTypes.size() ? ctor.getParameterTypes() : null;
 				if (ctorTypes == null) {
 					debug("Incorrect arguement length for constructor", true);
 					debug("ctor size: " + ctor.getParameterTypes().length, true);	
 				} 
-				
-				/*
-				for (Class<?> ctorType : ctorTypes) {
 
-					// will check the length too many times but more readable
-					
-					for (String cArgType : cArgTypes) {
-						if (cArgType.equalsIgnoreCase(ctorType.getTypeName())) {	
-							ctorTypeMatches++;
-							System.out.println("Typematch");
-							break;
-						} else {
-							System.out.println("Typematch Fail: " + cArgType + " != " + ctorType.getName());
-						}
-					}
-				}
-				*/
 				debug("Trying for length", true);
 			    if (ctorTypes != null && cArgTypes.size() == ctorTypes.length) {
 			    	debug("Got the length correct", true);
@@ -242,10 +215,11 @@ public class ClassBuilder extends ClassFactory<String, Object> {
 		    }
 		}
 		try {
-			// the decider!
+			// This is for Debugging
 			// if (debug && clsCtor == null) { throw new NullPointerException("Incorrect argument type or length in ClassBuilder constructor");}
 			// if (debug && cArgs == null) { throw new NullPointerException("The constructor arguments object was null");}
-			handler = clsCtor != null ? clsCtor.newInstance(this.cArgs) : clsObject.getClass().newInstance();
+			
+			handler = clsCtor != null ? clsCtor.newInstance(this.cArgs) : cls.getClass().newInstance();
 			debug("Class instantiated", true);
 		} catch (InstantiationException e) {
 			// TODO Auto-generated catch block
@@ -263,6 +237,7 @@ public class ClassBuilder extends ClassFactory<String, Object> {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		return handler;
 	}
 	
@@ -277,37 +252,20 @@ public class ClassBuilder extends ClassFactory<String, Object> {
 	private List<Object> buildParameters(Method rawMethod, Map<String, Object> eventArgs, String[] inputArgs) {
 		Method method = rawMethod;
 		Map<String, Object> types = eventArgs;
-		// String[] args = inputArgs;
 		
 	    Class<?>[] parameters = method.getParameterTypes();
 	    List<Object> params = new ArrayList<>();
 		
 	    int i = 0;
-	    // int c = 0;
 	    for (Class<?> parameter : parameters) {
     		if (types.containsKey(parameter.getName())) {
 	    		params.add(i, types.get(parameter.getName()));
 	    		debug(i + " Passing: " + types.get(parameter.getName().toString()) + " as: " + parameter.getName(), true);
     			i++;
 	    	}
-
-
-	    	/*
-	    	if (args != null) {
-		    	if (parameter.getTypeName().equalsIgnoreCase(String.class.getName())) {
-		    		if (args.length <= c) {
-			    		params.add(i, args[c]);
-			    		System.out.println(i + " " + parameter.getTypeName() + " = " + String.class.getName());
-			    		i++;
-		    		} else {
-		    			throw new IllegalArgumentException("Insufficient arguments"); 
-		    		}
-		    	}
-	    	}*/
-
 	    }
-	    return params;
 	    
+	    return params;	      
 	}
 	
 	
@@ -317,6 +275,7 @@ public class ClassBuilder extends ClassFactory<String, Object> {
 		if (enableDebug && test) {
 			System.out.println(outPut);
 		}
+		
 		return;
 	}
 }

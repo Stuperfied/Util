@@ -1,1 +1,10 @@
+au.com.mshcraft.util
+au.com.mshcraft.util.converters
+au.com.mshcraft.util.dictionaries
 au.com.mshcraft.util.factories
+au.com.mshcraft.util.interpreters
+au.com.mshcraft.util.interpreters.command
+au.com.mshcraft.util.interrupt
+au.com.mshcraft.util.io.fileio
+au.com.mshcraft.util.io.fileio.resolvers
+au.com.mshcraft.util.io.fileio.types

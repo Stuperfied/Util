@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>au.com.msh-craft</groupId>
     <artifactId>Util</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
     <name>au.com.mshcraft:Util</name>
     <description>General utilities for import</description>
     <url>https://github.com/Stuperfied/Util/wiki</url>
@@ -32,6 +32,23 @@
         </snapshotRepository>
     </distributionManagement>
     <build>
+            <!-- Filter only plugin.yml -->
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+        <includes>
+          <include>plugin.yml</include>
+        </includes>
+      </resource>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>false</filtering>
+        <excludes>
+          <exclude>plugin.yml</exclude>
+        </excludes>
+      </resource>
+    </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
