@@ -27,5 +27,5 @@
 
 name: Util
 main: au.com.mshcraft.util.Util
-version: 0.0.1
+version: ${version}
 softdepend: [WorldGuard, WorldEdit, ModifyWorld]

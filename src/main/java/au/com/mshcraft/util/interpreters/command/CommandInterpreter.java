@@ -99,20 +99,7 @@ public class CommandInterpreter implements CommandExecutor {
 			debug("args[] was null, No default method could be found", true);
 			return false;
 		}
-		
-		
-		/*
-		if (args != null && args.length > 0) {
-			subCom = args[0];		
-			debug("SubCommand: " + subCom, true);				
-			this.cName = this.subComClassMap.get(subCom);
-		} else if (this.comMap.containsKey("default")) {
-			this.cName = this.subComClassMap.get("default");
-		} else {
-			debug("args[] was null, No default method could be found", true);
-			return false;
-		}
-		*/
+
 		
 		debug("Constructing " + this.cName + 
 				newLine + "With conArgs.length" + this.conArgs.length + 
